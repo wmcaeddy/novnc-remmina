@@ -6,7 +6,7 @@ RUN echo 'Acquire::Check-Valid-Until "false";' >> /etc/apt/apt.conf.d/99ignore-g
 
 RUN apt-add-repository ppa:remmina-ppa-team/remmina-next -y
 RUN apt-get update
-RUN apt-get install -y remmina remmina-plugin-rdp remmina-plugin-vnc remmina-plugin-ssh
+RUN apt-get install -y remmina remmina-plugin-rdp remmina-plugin-vnc
 ENV VNC_PASSWORD=bubblete@
 
 # Expose port 80 for nginx (which proxies to the internal services)
