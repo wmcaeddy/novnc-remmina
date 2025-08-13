@@ -30,9 +30,9 @@
    - You can now use Remmina from the web browser to connect to RDP/VNC/SSH sessions
 
 ## Port Configuration
-- Internal port: 6081 (configured in Dockerfile)
+- Internal port: 80 (nginx proxy)
 - External port: 443 (HTTPS, handled by Railway)
-- The Dockerfile is configured to dynamically use Railway's PORT environment variable
+- Configure Railway to connect to port 80 in the service settings
 
 ## Volumes (Optional)
 For persistent configuration, you can use Railway's volume feature:

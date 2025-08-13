@@ -9,13 +9,8 @@ RUN apt-get update
 RUN apt-get install -y remmina remmina-plugin-rdp
 ENV VNC_PASSWORD=mypassword
 
-# Railway requires services to listen on 0.0.0.0, not localhost
-ENV BIND_INTERFACE=0.0.0.0
+# Expose port 80 for nginx (which proxies to the internal services)
+EXPOSE 80
 
-# Expose port 80 (nginx) and 6079 (web service)
-EXPOSE 80 6079
-
-# Modify the web service to listen on all interfaces for Railway
-# The web service config is at /usr/local/lib/web/backend/run.py
-CMD sed -i "s/localhost/0.0.0.0/g" /usr/local/lib/web/backend/run.py && \
-    /startup.sh
+# Use the default startup script
+CMD /startup.sh
