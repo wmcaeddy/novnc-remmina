@@ -9,12 +9,12 @@ RUN apt-get update
 RUN apt-get install -y remmina remmina-plugin-rdp
 ENV VNC_PASSWORD=mypassword
 
-# Railway will set PORT environment variable, default to 6081
-ENV PORT=6081
+# Railway will set PORT environment variable
+ENV PORT=${PORT:-80}
 EXPOSE ${PORT}
 
 # Override the default port 80 to use Railway's PORT
-CMD sed -i "s/80/${PORT}/g" /usr/local/lib/web/backend/vnc-auto.html && \
-    sed -i "s/80/${PORT}/g" /usr/local/lib/web/backend/vnc.html && \
-    sed -i "s/:80/:${PORT}/g" /etc/nginx/sites-enabled/default && \
+# Update nginx to listen on the PORT and proxy to the web service on 6079
+CMD sed -i "s/listen 80/listen ${PORT}/g" /etc/nginx/sites-enabled/default && \
+    sed -i "s/listen \[::\]:80/listen \[::\]:${PORT}/g" /etc/nginx/sites-enabled/default && \
     /startup.sh
